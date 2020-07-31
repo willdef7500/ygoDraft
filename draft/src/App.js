@@ -2,29 +2,9 @@ import React, { Component } from "react";
 import "./App.css";
 import Cardlist from "./components/cardlist";
 import NavBar from "./components/navbar";
+import jsonData from "./resources/main_deck.json";
 
-const pool = [
-  { id: "97268402", name: "Effect Veiler" },
-  { id: "5318639", name: "Mystical Space Typhoon" },
-  { id: "98645731", name: "Pot Of Duality" },
-  { id: "44095762", name: "Mirror Force" },
-  { id: "62279055", name: "Magic Cylinder" },
-  { id: "42052439", name: "Fire Flint Lady" },
-  { id: "70368879", name: "Upstart Goblin" },
-  { id: "13532663", name: "Dummy Golem" },
-  { id: "93920745", name: "Penguin Soldier" },
-  { id: "66499018", name: "Flame Tiger" },
-  { id: "52350806", name: "Danger! Mothman!" },
-  { id: "68078978", name: "Fortune Fairy Chee" },
-  { id: "99550630", name: "Sky Striker Maneuver - Afterburners!" },
-  { id: "9748752", name: "Caius The Shadow Monarch" },
-  { id: "73125233", name: "Raiza The Storm Monarch" },
-  { id: "12538374", name: "Treeborn Frog" },
-  { id: "1980574", name: "Hop Ear Squadron" },
-  { id: "40975574", name: "Red Resonator" },
-  { id: "65056481", name: "Satellarknight Alsahm" },
-  { id: "98414735", name: "Paleozoic Canadia" },
-];
+const pool = [...jsonData];
 
 class App extends Component {
   state = {
@@ -34,18 +14,20 @@ class App extends Component {
 
   addCards = () => {
     //Get 3 cards
+
     var c = [];
-    function generateRNG(x, y) {
-      var value = Math.floor(Math.random() * x);
+    function generateRNG(y) {
+      var value = Math.floor(Math.random() * pool.length);
       while (y.indexOf(value) >= 0) {
-        value = Math.floor(Math.random() * x);
+        value = Math.floor(Math.random() * pool.length);
       }
       return value;
     }
 
-    c.push(generateRNG(pool.length, c));
-    c.push(generateRNG(pool.length, c));
-    c.push(generateRNG(pool.length, c));
+    //eventually add the option to reroll if the same card appears more than x amount of times
+    c.push(generateRNG(c));
+    c.push(generateRNG(c));
+    c.push(generateRNG(c));
 
     //Update cardlist
     var cardlist = this.state.cardlist;
